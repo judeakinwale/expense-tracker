@@ -1,11 +1,11 @@
-import 'package:expense_tracker/widgets/chart_bar.dart';
+// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import './chart_bar.dart';
 import '../models/transaction.dart';
 
 class Chart extends StatelessWidget {
-  // const Chart({Key? key}) : super(key: key);
   final List<Transaction> _recentTransactions;
 
   Chart(this._recentTransactions);
@@ -32,13 +32,11 @@ class Chart extends StatelessWidget {
       //   }
       // }
 
-      // debugPrint(DateFormat.E().format(weekDay));
-      // debugPrint(totalSum.toString());
       return {
         'day': DateFormat.E().format(weekDay).substring(0, 1),
         'amount': totalSum
       };
-    });
+    }).reversed.toList();
   }
 
   double get totalSpending {
@@ -58,7 +56,6 @@ class Chart extends StatelessWidget {
           // children: groupedTransactionValues.map((e) => Text('${e['day']}: ${e['amount']}')).toList(),
           children: groupedTransactionValues.map((data) {
             return Flexible(
-              // flex: 1,
               fit: FlexFit.tight,
               child: ChartBar(
                   data['day'] as String,

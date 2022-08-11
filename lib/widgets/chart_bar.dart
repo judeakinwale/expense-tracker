@@ -1,5 +1,4 @@
-import 'dart:ffi';
-
+// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 
 class ChartBar extends StatelessWidget {
@@ -14,7 +13,12 @@ class ChartBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        FittedBox(child: Text(spendingAmount.toStringAsFixed(0))),
+        Container(
+          height: 20,
+          child: FittedBox(
+            child: Text('\$${spendingAmount.toStringAsFixed(0)}'),
+          ),
+        ),
         SizedBox(
           height: 4,
         ),
@@ -35,7 +39,7 @@ class ChartBar extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     // border: Border.all(color: Colors.grey, width: 1),
-                    color: Theme.of(context).primaryColorLight,
+                    color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),

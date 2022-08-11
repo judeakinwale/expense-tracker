@@ -1,7 +1,8 @@
-import 'package:expense_tracker/widgets/chart.dart';
-import 'package:expense_tracker/widgets/new_transaction.dart';
+// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 
+import './widgets/chart.dart';
+import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
 import './models/transaction.dart';
@@ -22,12 +23,14 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.amber,
           fontFamily: 'Quicksand',
           textTheme: ThemeData.light().textTheme.copyWith(
-                headline6: TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+              headline6: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
+              button: TextStyle(
+                color: Colors.white,
+              )),
           appBarTheme: AppBarTheme(
             titleTextStyle: TextStyle(
               fontFamily: 'OpenSans',
@@ -72,16 +75,22 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount, DateTime chosenDate) {
     final newTx = Transaction(
       title: title,
       amount: amount,
-      date: DateTime.now(),
+      date: chosenDate,
       id: DateTime.now().toString(),
     );
 
     setState(() {
       _userTransactions.add(newTx);
+    });
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      return _userTransactions.removeWhere((element) => element.id == id);
     });
   }
 
@@ -122,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Chart(_recentTransactions),
               // UserTransaction(),
               // NewTransaction(_addNewTransaction),
-              TransactionList(_userTransactions),
+              TransactionList(_userTransactions, _deleteTransaction),
             ],
           ),
         ),
